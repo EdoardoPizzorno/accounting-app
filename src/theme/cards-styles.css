@@ -1,0 +1,12 @@
+ion-card {
+    margin: 20px;
+    border-radius: 20px;
+}
+
+ion-card.primary {
+    background-color: var(--primary-color)
+}
+
+ion-card.secondary {
+    background-color: var(--secondary-color)
+}

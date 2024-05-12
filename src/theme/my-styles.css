@@ -1,0 +1,38 @@
+.container {
+    text-align: center;
+    margin: 20px;
+}
+
+.mt-5 {
+    margin-top: 5px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mt-30 {
+    margin-top: 30px;
+}
+
+.no-ms {
+    margin-left: -10px;
+    margin-right: -10px;
+    padding: 0;
+}
+
+.small {
+    font-size: 0.85em;
+}
+
+.positive {
+    color: rgb(132, 180, 130);
+}
+
+.negative {
+    color: rgb(250, 114, 114);
+}
