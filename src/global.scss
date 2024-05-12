@@ -36,6 +36,9 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
 
+* {
+    font-family: 'Poppins', 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+}
 
 .container {
     margin: 20px;
