@@ -1,12 +1,12 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true">
 
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title class="ion-text-center" size="large">Dashboard</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div class="container">
+  <div class="container mt-30">
     <ion-row class="ion-text-center ion-align-items-center ion-justify-content-center">
       <ion-avatar class="small">
         <img src="https://www.creaavatar.it/wp-content/uploads/2021/01/myAvatar-13.png">
@@ -24,16 +24,18 @@
   </ion-card-subtitle>
 
   <div class="container">
-  
-    <ion-button color="success">
+
+    <ion-button color="success" [routerLink]="['/add']">
       <ion-icon name="add"></ion-icon>
-      <ion-text>Aggiungi movimento</ion-text>
+      <ion-text>Add</ion-text>
     </ion-button>
+
+    <hr class="divider">
 
     <ion-grid class="mt-10 no-ms">
       <ion-row>
         <ion-col>
-          <ion-card class="internal-card primary">
+          <ion-card class="internal-card primary" [routerLink]="['/investments']">
             <ion-card-header>
               <ion-card-title class="ion-text-center"> Investments </ion-card-title>
             </ion-card-header>
@@ -81,6 +83,22 @@
 
       </ion-row>
     </ion-grid>
+  </div>
+
+  <hr class="divider">
+
+  <div class="container">
+    <ion-chip>Default</ion-chip>
+    <ion-chip color="primary">Primary</ion-chip>
+    <ion-chip color="secondary">Secondary</ion-chip>
+    <ion-chip color="tertiary">Tertiary</ion-chip>
+    <ion-chip color="success">Success</ion-chip>
+    <ion-chip color="warning">Warning</ion-chip>
+    <ion-chip color="danger">Danger</ion-chip>
+    <ion-chip color="light">Light</ion-chip>
+    <ion-chip color="medium">Medium</ion-chip>
+    <ion-chip color="dark">Dark</ion-chip>
+    <ion-chip color="success">+</ion-chip>
   </div>
 
 </ion-content>

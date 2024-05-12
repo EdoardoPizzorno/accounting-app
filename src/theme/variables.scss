@@ -2,11 +2,12 @@
 // http://ionicframework.com/docs/theming/
 
 :root {
-    --background-color: #edfef9;
+    --background-color: #eff8f6;
+    --background: linear-gradient(to bottom, #b7f9e5, #f2f2f2);
     --primary-color: #c1e7dd;
     --secondary-color: #6eb49c;
     --tertiary-color: #eefd8c;
-    --default: #007f3f;
-    --dark: #005a2d;
+    --default: #086d3b;
+    --dark: #005b2d;
     --ion-background-color: var(--background-color);
 }

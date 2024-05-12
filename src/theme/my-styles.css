@@ -29,10 +29,22 @@
     font-size: 0.85em;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
 .positive {
     color: rgb(132, 180, 130);
 }
 
 .negative {
     color: rgb(250, 114, 114);
+}
+
+hr.divider {
+    width: 15%;
+    border-radius: 25px;
+    height: 7px;
+    margin: 25px auto;
+    background: var(--default);
 }
