@@ -1,16 +1,89 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
+
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title class="ion-text-center" size="large">Dashboard</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div class="container">
+    <ion-row class="ion-text-center ion-align-items-center ion-justify-content-center">
+      <ion-avatar class="small">
+        <img src="https://www.creaavatar.it/wp-content/uploads/2021/01/myAvatar-13.png">
+      </ion-avatar>
+      &nbsp;&nbsp;
+      <ion-text>Hi, Edoardo!</ion-text>
+    </ion-row>
+  </div>
+
+  <ion-card class="primary">
+    <ion-card-header>
+      <ion-card-title class="ion-text-center"> € 100 </ion-card-title>
+    </ion-card-header>
+    <ion-card-subtitle class="ion-text-center small">
+      <b> Mese in corso: <ion-text class="negative">€ <i> -25,21 </i> </ion-text></b>
+    </ion-card-subtitle>
+    <ion-card-content class="ion-text-center">
+
+      <ion-button color="success">
+        <ion-icon name="add"></ion-icon>
+        <ion-text>Aggiungi movimento</ion-text>
+      </ion-button>
+
+      <ion-grid>
+        <ion-row>
+
+          <ion-col>
+            <ion-card class="internal-card">
+              <ion-card-header>
+                <ion-card-title class="ion-text-center"> € 100 </ion-card-title>
+              </ion-card-header>
+              <ion-card-content class="ion-text-center">
+                <ion-text>Entrate</ion-text>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col>
+            <ion-card class="internal-card">
+              <ion-card-header>
+                <ion-card-title class="ion-text-center"> € 100 </ion-card-title>
+              </ion-card-header>
+              <ion-card-content class="ion-text-center">
+                <ion-text>Entrate</ion-text>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+        </ion-row>
+        <ion-row>
+
+          <ion-col>
+            <ion-card class="internal-card">
+              <ion-card-header>
+                <ion-card-title class="ion-text-center"> € 100 </ion-card-title>
+              </ion-card-header>
+              <ion-card-content class="ion-text-center">
+                <ion-text>Entrate</ion-text>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <ion-col>
+            <ion-card class="internal-card">
+              <ion-card-header>
+                <ion-card-title class="ion-text-center"> € 100 </ion-card-title>
+              </ion-card-header>
+              <ion-card-content class="ion-text-center">
+                <ion-text>Entrate</ion-text>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>
