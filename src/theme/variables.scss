@@ -2,10 +2,11 @@
 // http://ionicframework.com/docs/theming/
 
 :root {
-    --default-color: #edfef9;
+    --background-color: #edfef9;
     --primary-color: #c1e7dd;
     --secondary-color: #6eb49c;
     --tertiary-color: #eefd8c;
+    --default: #007f3f;
     --dark: #005a2d;
-    --ion-background-color: var(--default-color);
+    --ion-background-color: var(--background-color);
 }
