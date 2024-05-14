@@ -4,9 +4,9 @@ ion-card {
 }
 
 ion-card.primary {
-    background-color: var(--primary-color)
+    --ion-background-color: var(--primary-color);
 }
 
 ion-card.secondary {
-    background-color: var(--secondary-color)
+    --ion-background-color: var(--secondary-color)
 }
