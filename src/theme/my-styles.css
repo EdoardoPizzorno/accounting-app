@@ -19,14 +19,38 @@
     margin-top: 30px;
 }
 
+.mb-5 {
+    margin-bottom: 5px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.mb-30 {
+    margin-bottom: 30px;
+}
+
 .no-ms {
     margin-left: -10px;
     margin-right: -10px;
     padding: 0;
 }
 
+.big {
+    font-size: 1.5em;
+}
+
 .small {
     font-size: 0.85em;
+}
+
+.xsmall {
+    font-size: 0.75em;
 }
 
 .hidden {
@@ -39,6 +63,10 @@
 
 .negative {
     color: rgb(250, 114, 114);
+}
+
+.neutral {
+    color: rgb(197, 197, 197);
 }
 
 hr.divider {
