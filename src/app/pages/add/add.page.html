@@ -21,7 +21,7 @@
       <ion-col size="12">
         <ion-item>
           <ion-label position="stacked">Title</ion-label>
-          <ion-input type="text" [(ngModel)]="title"></ion-input>
+          <ion-input type="text" [(ngModel)]="historyService.operation.title"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -29,7 +29,7 @@
       <ion-col size="12">
         <ion-item>
           <ion-label position="stacked">Description <i class="xsmall">(facoltative)</i> </ion-label>
-          <ion-input type="text" [(ngModel)]="description"></ion-input>
+          <ion-input type="text" [(ngModel)]="historyService.operation.description"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -37,7 +37,7 @@
       <ion-col size="12">
         <ion-item>
           <ion-label position="stacked">Amount</ion-label>
-          <ion-input type="number" [(ngModel)]="amount"></ion-input>
+          <ion-input type="number" [(ngModel)]="historyService.operation.amount"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -45,7 +45,7 @@
       <ion-col size="12">
         <ion-item>
           <ion-label position="stacked">Bank</ion-label>
-          <ion-select [(ngModel)]="bank" placeholder="Select a Bank">
+          <ion-select [(ngModel)]="historyService.operation.bank" placeholder="Select a Bank">
             <ion-select-option value="1">Bank 1</ion-select-option>
             <ion-select-option value="2">Bank 2</ion-select-option>
             <ion-select-option value="3">Bank 3</ion-select-option>
@@ -59,13 +59,13 @@
           <ion-row>
             <div>
               <ion-label position="stacked">First reason</ion-label>
-              <ion-select [(ngModel)]="firstReason" placeholder="Select a Reason">
+              <ion-select [(ngModel)]="historyService.operation.firstReason" placeholder="Select a Reason">
                 <ion-select-option value="1">Reason 1</ion-select-option>
                 <ion-select-option value="2">Reason 2</ion-select-option>
                 <ion-select-option value="3">Reason 3</ion-select-option>
               </ion-select>
             </div>
-            <ion-button id="add-reason" color="primary" class="align-items-end">
+            <ion-button id="add-reason" color="primary">
               <ion-icon name="add"></ion-icon>
             </ion-button>
           </ion-row>
@@ -74,15 +74,14 @@
     </ion-row>
 
     <!-- ION-ALERT -->
-    <ion-alert trigger="add-reason">
+    <ion-alert trigger="add-reason" header="Add a reason" [buttons]="reasonService.alertButtons"
+      [inputs]="reasonService.newReason"></ion-alert>
 
-    </ion-alert>
-
-    <ion-row *ngIf="firstReason">
+    <ion-row *ngIf="historyService.operation.firstReason">
       <ion-col size="12">
         <ion-item>
           <ion-label position="stacked">Second reason</ion-label>
-          <ion-select [(ngModel)]="secondReason" placeholder="Select a Reason">
+          <ion-select [(ngModel)]="historyService.operation.secondReason" placeholder="Select a Reason">
             <ion-select-option value="1">Reason 1</ion-select-option>
             <ion-select-option value="2">Reason 2</ion-select-option>
             <ion-select-option value="3">Reason 3</ion-select-option>
@@ -93,13 +92,13 @@
     <ion-row>
       <ion-col size="12">
         <ion-item>
-          <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="date"></ion-datetime>
+          <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="historyService.operation.date"></ion-datetime>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col size="12">
-        <ion-button color="success" expand="block" (click)="add()">Add</ion-button>
+        <ion-button color="success" expand="block" (click)="historyService.addOperation()">Add</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

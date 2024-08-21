@@ -3,46 +3,24 @@
     margin: 20px;
 }
 
-.mt-5 {
-    margin-top: 5px;
+.bold {
+    font-weight: bold;
 }
 
-.mt-10 {
-    margin-top: 10px;
+.xxlarge {
+    font-size: 2em;
 }
 
-.mt-20 {
-    margin-top: 20px;
+.xlarge {
+    font-size: 1.75em;
 }
 
-.mt-30 {
-    margin-top: 30px;
-}
-
-.mb-5 {
-    margin-bottom: 5px;
-}
-
-.mb-10 {
-    margin-bottom: 10px;
-}
-
-.mb-20 {
-    margin-bottom: 20px;
-}
-
-.mb-30 {
-    margin-bottom: 30px;
-}
-
-.no-ms {
-    margin-left: -10px;
-    margin-right: -10px;
-    padding: 0;
-}
-
-.big {
+.large {
     font-size: 1.5em;
+}
+
+.medium {
+    font-size: 1.25em;
 }
 
 .small {
@@ -51,6 +29,10 @@
 
 .xsmall {
     font-size: 0.75em;
+}
+
+.xxsmall {
+    font-size: 0.5em;
 }
 
 .hidden {
@@ -77,6 +59,18 @@ hr.divider {
     background: var(--default);
 }
 
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
 .justify-content-center {
     justify-content: center;
 }
@@ -91,4 +85,8 @@ hr.divider {
 
 .align-items-end {
     align-items: flex-end;
+}
+
+ion-icon[name="trash"] {
+    color: rgb(173, 3, 3);
 }

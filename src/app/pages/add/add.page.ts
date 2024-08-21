@@ -1,28 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { HistoryService } from 'src/app/services/history.service';
+import { ReasonService } from 'src/app/services/reason.service';
 
 @Component({
   selector: 'app-add',
   templateUrl: './add.page.html',
   styleUrls: ['./add.page.scss'],
 })
-export class AddPage implements OnInit {
+export class AddPage {
 
-  title: string = "";
-  description: string = "";
-  amount: number = 0.0;
-  bank: string = "";
-  firstReason: string = "";
-  secondReason: string = "";
-  date: string = "";
-
-  constructor() { }
-
-  ngOnInit() {
-    this.date = new Date().toISOString();
-  }
-
-  add() {
-    
-  }
+  constructor(public reasonService: ReasonService, public historyService: HistoryService) { }
 
 }
