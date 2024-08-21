@@ -31,7 +31,7 @@ export class HistoryService {
     this.operation = {
       title: "",
       description: "",
-      amount: 0.0,
+      amount: "",
       bank: "",
       firstReason: "",
       secondReason: "",

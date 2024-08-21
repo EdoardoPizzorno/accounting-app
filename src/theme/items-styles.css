@@ -1,0 +1,5 @@
+ion-item {
+    border-radius: 30px;
+    margin: 10px 0;
+    --border-style: none !important;
+}
