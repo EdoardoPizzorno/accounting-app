@@ -68,8 +68,8 @@
       </ion-col>
     </ion-row>
 
-    <ion-alert trigger="add-reason" header="Add a reason" [buttons]="reasonService.alertButtons"
-      [inputs]="reasonService.newReason"></ion-alert>
+    <ion-alert trigger="add-reason" header="Add a reason" [buttons]="reasonsService.alertButtons"
+      [inputs]="reasonsService.newReason"></ion-alert>
 
     <ion-row *ngIf="historyService.operation.firstReason">
       <ion-col size="12">

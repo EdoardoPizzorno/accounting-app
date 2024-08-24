@@ -102,6 +102,10 @@
     margin: 30px !important;
 }
 
+.pt-0 {
+    padding-top: 0px !important;
+}
+
 .pt-1 {
     padding-top: 1px !important;
 }

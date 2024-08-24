@@ -10,7 +10,8 @@ export class HistoryPage implements OnInit {
 
   constructor(public historyService: HistoryService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.historyService.getHistory();
   }
 
 }

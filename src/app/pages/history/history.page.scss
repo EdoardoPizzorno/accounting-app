@@ -1,3 +1,12 @@
 ion-icon[name="trash"] {
     font-size: 22px;
 }
+
+ion-card-header {
+    padding-bottom: 0px !important;
+}
+
+ion-card-content {
+    padding: 16px !important;
+    padding-top: 0px !important;
+}

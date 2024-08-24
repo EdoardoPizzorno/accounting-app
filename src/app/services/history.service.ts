@@ -12,17 +12,45 @@ export class HistoryService {
     this.resetOperation();
   }
 
-  getHistory() {
-    return this.history;
+  async getHistory() {
+    this.history = [
+      {
+        title: "Salary",
+        description: "Monthly salary",
+        amount: 1000,
+        bank: "Bank of America",
+        firstReason: "Salary",
+        secondReason: "Income",
+        date: new Date().toISOString()
+      },
+      {
+        title: "Rent",
+        description: "Monthly rent",
+        amount: -500,
+        bank: "Bank of America",
+        firstReason: "Rent",
+        secondReason: "Expense",
+        date: new Date().toISOString()
+      },
+      {
+        title: "Groceries",
+        description: "Monthly groceries",
+        amount: -200,
+        bank: "Bank of America",
+        firstReason: "Groceries",
+        secondReason: "Expense",
+        date: new Date().toISOString()
+      }
+    ]
   }
 
-  addOperation() {
+  async addOperation() {
     this.history.push(this.operation);
     console.log(this.history);
     this.resetOperation();
   }
 
-  deleteOperation(operation: any) {
+  async deleteOperation(operation: any) {
     this.history = this.history.filter((item: any) => item !== operation);
     console.log(this.history);
   }

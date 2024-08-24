@@ -1,10 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="ion-text-center">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
+      <ion-back-button defaultHref="/investments"></ion-back-button>
     </ion-buttons>
 
-    <ion-title>Investments</ion-title>
+    <ion-title> {{ investmentType }} </ion-title>
 
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/add']">
@@ -15,10 +15,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large"> {{ investmentType }} </ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-  <canvas class="chart" #chart></canvas>
-
-  <ion-card *ngFor="let investment of investmentsService.investmentsGroupedByType" [routerLink]="['/investments/', investment.type]" routerLinkActive="router-link-active" >
+  <ion-card *ngFor="let investment of investmentsService.investmentsByType">
     <ion-card-header>
       <ion-row>
         <ion-col size="6">
@@ -46,6 +49,5 @@
       </div>
     </ion-card-content>
   </ion-card>
-  
 
 </ion-content>
