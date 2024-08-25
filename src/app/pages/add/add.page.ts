@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HistoryService } from 'src/app/services/history.service';
+import { OperationsService } from 'src/app/services/operations.service';
 import { ReasonsService } from 'src/app/services/reason.service';
 
 @Component({
@@ -9,6 +9,6 @@ import { ReasonsService } from 'src/app/services/reason.service';
 })
 export class AddPage {
 
-  constructor(public reasonsService: ReasonsService, public historyService: HistoryService) { }
+  constructor(public reasonsService: ReasonsService, public operationsService: OperationsService) { }
 
 }

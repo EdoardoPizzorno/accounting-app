@@ -18,34 +18,28 @@
 
   <canvas class="chart" #chart></canvas>
 
-  <ion-card *ngFor="let investment of investmentsService.investmentsGroupedByType" [routerLink]="['/investments/', investment.type]" routerLinkActive="router-link-active" >
+  <ion-card *ngFor="let investment of investmentsService.investmentsGroupedByType"
+    [routerLink]="['/investments/', investment.type]" routerLinkActive="router-link-active">
     <ion-card-header>
       <ion-row>
         <ion-col size="6">
-          <ion-card-title class="xlarge bold text-left">{{ investment.title == "" ? "Untitled" : investment.title
+          <ion-card-title class="xlarge bold text-left">{{ investment.type == "" ? "Unknown" : investment.type
             }}</ion-card-title>
         </ion-col>
         <ion-col size="6" class="text-right">
-          <strong class="xlarge " [ngClass]="{positive
-            : investment.amount>0, negative: investment.amount<0, neutral: investment.amount==0}"> {{
-            investment.amount | currency: 'EUR' }} </strong>
+          <strong class="xlarge" [ngClass]="{positive
+            : investment.total>0, negative: investment.total<0, neutral: investment.total==0}"> {{
+            investment.total | currency: 'EUR' }} </strong>
         </ion-col>
       </ion-row>
     </ion-card-header>
 
     <ion-card-content>
       <div class="text-left medium m-10">
-
-        <strong class="medium"> {{ investment.date | date }} </strong>
-        <p class="description small"> <i> {{ investment.description == "" ? "No description" : investment.description }}
-          </i></p>
-
-        <p class="mt-10">Broker: <strong> {{ investment.broker }}</strong></p>
-        <p>Type: <strong> {{ investment.type }}</strong></p>
-        <p *ngIf="investment.secondReason">Second Reason: <strong> {{ investment.secondReason }}</strong></p>
+        <strong class="small">{{ investment.assets }}</strong>
       </div>
     </ion-card-content>
   </ion-card>
-  
+
 
 </ion-content>

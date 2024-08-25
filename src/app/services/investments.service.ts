@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { RequestsService } from './requests.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,48 +10,19 @@ export class InvestmentsService {
   public investmentsByType: any[] = [];
   public investmentsGroupedByType: any[] = [];
 
-  constructor() { }
+  constructor(private requestsService: RequestsService) { }
 
   async getInvestments() {
-    this.investments = [
-      {
-        title: "Stocks",
-        description: "Stock market investments",
-        amount: 1000,
-        broker: "Trade Republic",
-        type: "Stocks",
-        date: "2021-06-01T00:00:00.000Z"
-      },
-      {
-        title: "Stocks",
-        description: "Stock market investments",
-        amount: 500,
-        broker: "Trade Republic",
-        type: "Stocks",
-        date: "2021-06-01T00:00:00.000Z"
-      },
-      {
-        title: "Crypto",
-        description: "Crypto market investments",
-        amount: 500,
-        broker: "Bybit",
-        type: "Crypto",
-        date: "2021-05-01T00:00:00.000Z"
-      },
-      {
-        title: "Real Estate",
-        description: "Real estate investments",
-        amount: 200,
-        broker: "Fineco",
-        type: "Real Estate",
-        date: "2021-01-01T00:00:00.000Z"
-      }
-    ]
-    //await this.groupInvestmentsByType();
-    //console.log(this.investmentsGroupedByType)
+    if (this.investments.length === 0) {
+      this.investments = (await this.requestsService.sendRequest('GET', 'investments', { userId: "66cb1cfef8da1104165e34a8" })).data;
+      await this.groupInvestmentsByType();
+    }
   }
 
   async getInvestmentsByType(type: string) {
+    if (this.investments.length === 0)
+      await this.getInvestments();
+
     this.investmentsByType = this.investments.filter((investment: any) => investment.type === type);
   }
 
@@ -65,13 +37,20 @@ export class InvestmentsService {
   }
 
   async groupInvestmentsByType() {
-    this.investmentsGroupedByType = this.investments.reduce((acc: any, investment: any) => {
-      if (!acc[investment.type]) {
-        acc[investment.type] = [];
+    for (let investment of this.investments) {
+      let index = this.investmentsGroupedByType.findIndex((item: any) => item.type === investment.type);
+      if (index === -1) {
+        this.investmentsGroupedByType.push({
+          type: investment.type,
+          total: investment.amount,
+          assets: [investment.ticker]
+        });
+      } else {
+        this.investmentsGroupedByType[index].total += investment.amount;
+        this.investmentsGroupedByType[index].assets.push(investment.ticker);
+        this.investmentsGroupedByType[index].assets = this.investmentsGroupedByType[index].assets.join(', ');
       }
-      acc[investment.type].push(investment);
-      return acc;
-    }, {});
+    }
   }
 
 }

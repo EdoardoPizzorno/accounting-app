@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { InvestmentsService } from 'src/app/services/investments.service';
+import { OperationsService } from 'src/app/services/operations.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,11 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(private operationsService: OperationsService, private investmentsService: InvestmentsService) { }
+
+  async ngOnInit() {
+    await this.operationsService.getHistory();
+    await this.investmentsService.getInvestments();
+  }
 
 }

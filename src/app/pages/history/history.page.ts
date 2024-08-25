@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HistoryService } from 'src/app/services/history.service';
+import { OperationsService } from 'src/app/services/operations.service';
 
 @Component({
   selector: 'app-history',
@@ -8,10 +8,10 @@ import { HistoryService } from 'src/app/services/history.service';
 })
 export class HistoryPage implements OnInit {
 
-  constructor(public historyService: HistoryService) { }
+  constructor(public operationsService: OperationsService) { }
 
   async ngOnInit() {
-    await this.historyService.getHistory();
+    await this.operationsService.getHistory();
   }
 
 }
