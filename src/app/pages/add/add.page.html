@@ -27,7 +27,8 @@
     <ion-row>
       <ion-col size="12">
         <ion-item>
-          <ion-input type="text" [(ngModel)]="operationsService.operation.description" placeholder="Description"></ion-input>
+          <ion-input type="text" [(ngModel)]="operationsService.operation.description"
+            placeholder="Description"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -41,29 +42,30 @@
     <ion-row>
       <ion-col size="12">
         <ion-item>
-          <ion-select [(ngModel)]="operationsService.operation.bank" placeholder="Select a Bank">
-            <ion-select-option value="1">Bank 1</ion-select-option>
-            <ion-select-option value="2">Bank 2</ion-select-option>
-            <ion-select-option value="3">Bank 3</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12">
-        <ion-item>
           <ion-row>
             <div>
-              <ion-select [(ngModel)]="operationsService.operation.firstReason" placeholder="Select first reason">
-                <ion-select-option value="1">Reason 1</ion-select-option>
-                <ion-select-option value="2">Reason 2</ion-select-option>
-                <ion-select-option value="3">Reason 3</ion-select-option>
+              <ion-select [(ngModel)]="operationsService.operation.firstReason" placeholder="Select first reason"
+                (ionChange)="checkIfInvestment()">
+                <ion-select-option value="investment">Investment</ion-select-option>
+                <ion-select-option value="2">Food</ion-select-option>
+                <ion-select-option value="3">Trips</ion-select-option>
               </ion-select>
             </div>
             <ion-button id="add-reason" color="success" class="p-0 ml-10">
               <ion-icon name="add"></ion-icon>
             </ion-button>
           </ion-row>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-select [(ngModel)]="operationsService.operation.bank" placeholder="Select a Bank">
+            <ion-select-option value="1">Bank 1</ion-select-option>
+            <ion-select-option value="2">Bank 2</ion-select-option>
+            <ion-select-option value="3">Bank 3</ion-select-option>
+          </ion-select>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -85,7 +87,7 @@
     <ion-row>
       <ion-col size="12">
         <ion-item>
-          <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="operationsService.operation.date"></ion-datetime>
+          <ion-input type="date" [(ngModel)]="operationsService.operation.date" placeholder="Date"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>

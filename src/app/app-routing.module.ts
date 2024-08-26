@@ -30,7 +30,25 @@ const routes: Routes = [
   },
   {
     path: 'add',
-    loadChildren: () => import('./pages/add/add.module').then(m => m.AddPageModule)
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./pages/add/add.module').then(m => m.AddPageModule)
+      },
+      {
+        path: 'investment',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('./pages/add-investment/add-investment.module').then(m => m.AddInvestmentPageModule)
+          },
+          {
+            path: ':type',
+            loadChildren: () => import('./pages/add-investment/add-investment.module').then(m => m.AddInvestmentPageModule)
+          }
+        ]
+      }
+    ]
   },
   {
     path: 'history',
@@ -39,6 +57,10 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfilePageModule)
+  },
+  {
+    path: 'add-investment',
+    loadChildren: () => import('./pages/add-investment/add-investment.module').then( m => m.AddInvestmentPageModule)
   },
 ];
 

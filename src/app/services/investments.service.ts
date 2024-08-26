@@ -6,11 +6,14 @@ import { RequestsService } from './requests.service';
 })
 export class InvestmentsService {
 
+  public newInvestment: any = {};
   public investments: any[] = [];
   public investmentsByType: any[] = [];
   public investmentsGroupedByType: any[] = [];
 
-  constructor(private requestsService: RequestsService) { }
+  constructor(private requestsService: RequestsService) {
+    this.resetNewInvestment();
+  }
 
   async getInvestments() {
     if (this.investments.length === 0) {
@@ -26,8 +29,8 @@ export class InvestmentsService {
     this.investmentsByType = this.investments.filter((investment: any) => investment.type === type);
   }
 
-  async addInvestment(investment: any) {
-    this.investments.push(investment);
+  async addInvestment() {
+    this.investments.push(this.newInvestment);
     console.log(this.investments);
   }
 
@@ -51,6 +54,19 @@ export class InvestmentsService {
         this.investmentsGroupedByType[index].assets = this.investmentsGroupedByType[index].assets.join(', ');
       }
     }
+  }
+
+  private resetNewInvestment() {
+    this.newInvestment = {
+      ticker: "",
+      notes: "",
+      amount: "",
+      quantity: "",
+      broker: "",
+      type: "",
+      date: new Date().toISOString(),
+      user: ""
+    };
   }
 
 }
