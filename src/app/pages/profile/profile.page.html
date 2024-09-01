@@ -16,4 +16,37 @@
 
 <ion-content [fullscreen]="true">
 
+  <div class="profile-header">
+    <div class="profile-picture-wrapper">
+      <ion-avatar class="profile-avatar">
+        <img src="https://icons.veryicon.com/png/o/miscellaneous/standard/avatar-15.png" alt="Avatar">
+      </ion-avatar>
+    </div>
+    <div class="profile-info">
+      <h2>{{ profileService.user.name }} {{ profileService.user.surname }}</h2>
+      <p>{{ profileService.user.email }}</p>
+    </div>
+  </div>
+
+  <ion-card class="profile-details-card">
+    <ion-card-content>
+      <ion-list lines="none">
+        <ion-item>
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          <ion-text>{{ profileService.user.email }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="call-outline" slot="start"></ion-icon>
+          <ion-text>{{ profileService.user.phone }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="home-outline" slot="start"></ion-icon>
+          <ion-text>{{ profileService.user.address }}</ion-text>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="full" color="success" shape="round" class="edit-button" (click)="editProfile()">Edit Profile</ion-button>
+
 </ion-content>

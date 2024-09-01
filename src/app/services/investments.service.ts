@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RequestsService } from './requests.service';
+import { ProfileService } from './profile.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,13 @@ export class InvestmentsService {
   public investmentsByType: any[] = [];
   public investmentsGroupedByType: any[] = [];
 
-  constructor(private requestsService: RequestsService) {
+  constructor(private requestsService: RequestsService, private profileService: ProfileService) {
     this.resetNewInvestment();
   }
 
   async getInvestments() {
     if (this.investments.length === 0) {
-      this.investments = (await this.requestsService.sendRequest('GET', 'investments', { userId: "66cb1cfef8da1104165e34a8" })).data;
+      this.investments = (await this.requestsService.sendRequest('GET', 'investments', { userId: this.profileService.user.uuid })).data;
       await this.groupInvestmentsByType();
     }
   }

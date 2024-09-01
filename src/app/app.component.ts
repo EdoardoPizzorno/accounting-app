@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
+import { ProfileService } from './services/profile.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,10 @@ import { Platform } from '@ionic/angular';
 })
 export class AppComponent {
 
-  constructor(public platform: Platform) { }
+  constructor(public platform: Platform, private profileService: ProfileService) { }
+
+  async ngOnInit() {
+    await this.profileService.getUser();
+  }
 
 }

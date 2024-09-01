@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RequestsService } from './requests.service';
+import { ProfileService } from './profile.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,13 @@ export class OperationsService {
   public history: any = [];
   public operation: any = {};
 
-  constructor(private requestsService: RequestsService) {
+  constructor(private requestsService: RequestsService, private profileService: ProfileService) {
     this.resetOperation();
   }
 
   async getHistory() {
     if (this.history.length === 0) {
-      this.history = (await this.requestsService.sendRequest('GET', 'operations', { userId: "66cb1cfef8da1104165e34a8" })).data;
+      this.history = (await this.requestsService.sendRequest('GET', 'operations', { userId: this.profileService.user.uuid })).data;
     }
   }
 
