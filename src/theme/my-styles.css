@@ -87,6 +87,14 @@ hr.divider {
     align-items: flex-end;
 }
 
+ion-header ion-title {
+    font-size: 1.25em;
+}
+
+ion-icon, ion-back-button {
+    color: var(--default);
+}
+
 ion-icon[name="trash"] {
     color: rgb(173, 3, 3);
 }

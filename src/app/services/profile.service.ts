@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { GetCookieOptions } from '@capacitor/core/types/core-plugins';
-import { RequestsService } from './requests.service';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -9,7 +7,7 @@ import { Router } from '@angular/router';
 export class ProfileService {
 
   public user: any = {
-    uuid: "",
+    _id: "",
     username: "",
     name: "",
     surname: "",
@@ -20,26 +18,26 @@ export class ProfileService {
     avatar: ""
   };
 
-  constructor(private requestsService: RequestsService, private router: Router) {
+  constructor(private router: Router) {
     this.getUser();
   }
 
   async getUser() {
-    // this.user = {
-    //   uuid: "66cb1cfef8da1104165e34a8",
-    //   username: "edoardopizzorno",
-    //   name: "Edoardo",
-    //   surname: "Pizzorno",
-    //   birthdate: "24/11/2005",
-    //   address: "Via Roma 1",
-    //   email: "howudoing@gmail.com",
-    //   phone: "1234567890",
-    //   avatar: "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
-    // }
-    this.user = localStorage.getItem('user');
-    if (JSON.parse(this.user).length == 0) {
-      this.router.navigate(['/login'])
+    let condition: boolean = localStorage.getItem('accounting-app-token') !== null && localStorage.getItem('accounting-app-user') !== null && localStorage.getItem('accounting-app-token') !== "undefined" && localStorage.getItem('accounting-app-user') !== "undefined";
+    if (condition) {
+      this.user = JSON.parse(localStorage.getItem('accounting-app-user')!);
     }
+  }
+
+  async setUser(user: any) {
+    localStorage.setItem('accounting-app-user', JSON.stringify(user));
+    this.user = user;
+  }
+
+  async logout() {
+    localStorage.removeItem('accounting-app-token');
+    localStorage.removeItem('accounting-app-user');
+    window.location.href = "/login";
   }
 
 }

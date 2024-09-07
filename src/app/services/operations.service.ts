@@ -16,7 +16,10 @@ export class OperationsService {
 
   async getHistory() {
     if (this.history.length === 0) {
-      this.history = (await this.requestsService.sendRequest('GET', 'operations', { userId: this.profileService.user.uuid })).data;
+      await this.requestsService.sendRequest('GET', 'operations', { userId: this.profileService.user._id }).catch(this.requestsService.error)
+        .then(async (response: any) => {
+          this.history = response.data;
+        });
     }
   }
 

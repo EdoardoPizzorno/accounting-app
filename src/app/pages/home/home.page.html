@@ -1,6 +1,16 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title class="ion-text-center">Dashboard</ion-title>
+  <ion-toolbar class="ion-text-center">
+    <ion-buttons slot="start" class="hidden">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Dashboard</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button class="hidden">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -9,10 +19,10 @@
   <div class="container mt-30">
     <ion-row class="ion-text-center ion-align-items-center ion-justify-content-center">
       <ion-avatar class="small">
-        <img src="https://www.creaavatar.it/wp-content/uploads/2021/01/myAvatar-13.png">
+        <img [src]="profileService.user.avatar">
       </ion-avatar>
       &nbsp;&nbsp;
-      <ion-text>Hi, Edoardo!</ion-text>
+      <ion-text>Hi, {{profileService.user.username}}!</ion-text>
     </ion-row>
   </div>
 

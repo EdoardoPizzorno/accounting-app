@@ -18,15 +18,17 @@ export class InvestmentsService {
 
   async getInvestments() {
     if (this.investments.length === 0) {
-      this.investments = (await this.requestsService.sendRequest('GET', 'investments', { userId: this.profileService.user.uuid })).data;
-      await this.groupInvestmentsByType();
+      await this.requestsService.sendRequest('GET', 'investments', { userId: this.profileService.user._id }).catch(this.requestsService.error)
+        .then(async (response: any) => {
+          this.investments = response.data;
+          await this.groupInvestmentsByType();
+        });
     }
   }
 
   async getInvestmentsByType(type: string) {
     if (this.investments.length === 0)
       await this.getInvestments();
-
     this.investmentsByType = this.investments.filter((investment: any) => investment.type === type);
   }
 

@@ -14,4 +14,8 @@ export class ProfilePage {
     console.log('Edit profile clicked');
   }
 
+  logout() {
+    this.profileService.logout();
+  }
+
 }

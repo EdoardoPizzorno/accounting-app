@@ -6,9 +6,9 @@
 
     <ion-title>Profile</ion-title>
 
-    <ion-buttons slot="end" class="hidden">
-      <ion-button [routerLink]="['/add']">
-        <ion-icon name="add"></ion-icon>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -19,7 +19,7 @@
   <div class="profile-header">
     <div class="profile-picture-wrapper">
       <ion-avatar class="profile-avatar">
-        <img src="https://icons.veryicon.com/png/o/miscellaneous/standard/avatar-15.png" alt="Avatar">
+        <img [src]="profileService.user.avatar" alt="Avatar">
       </ion-avatar>
     </div>
     <div class="profile-info">
