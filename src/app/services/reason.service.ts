@@ -23,7 +23,8 @@ export class ReasonsService {
   public newReason: any = [
     {
       placeholder: 'Name',
-      name: ''
+      name: '',
+      color: ''
     }
   ];
 

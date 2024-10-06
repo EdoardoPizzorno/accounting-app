@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BanksService } from 'src/app/services/banks.service';
 import { InvestmentsService } from 'src/app/services/investments.service';
 import { OperationsService } from 'src/app/services/operations.service';
 import { ReasonsService } from 'src/app/services/reason.service';
@@ -11,7 +12,7 @@ import { ReasonsService } from 'src/app/services/reason.service';
 })
 export class AddPage {
 
-  constructor(public reasonsService: ReasonsService, public operationsService: OperationsService, private activatedRoute: ActivatedRoute, private router: Router, private investmentsService: InvestmentsService) { }
+  constructor(public reasonsService: ReasonsService, public operationsService: OperationsService, private activatedRoute: ActivatedRoute, private router: Router, private investmentsService: InvestmentsService, public banksService: BanksService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {

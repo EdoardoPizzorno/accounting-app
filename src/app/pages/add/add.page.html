@@ -42,19 +42,15 @@
     <ion-row>
       <ion-col size="12">
         <ion-item>
-          <ion-row>
-            <div>
-              <ion-select [(ngModel)]="operationsService.operation.firstReason" placeholder="Select first reason"
-                (ionChange)="checkIfInvestment()">
-                <ion-select-option value="investment">Investment</ion-select-option>
-                <ion-select-option value="2">Food</ion-select-option>
-                <ion-select-option value="3">Trips</ion-select-option>
-              </ion-select>
-            </div>
-            <ion-button id="add-reason" color="success" class="p-0 ml-10">
-              <ion-icon name="add"></ion-icon>
-            </ion-button>
-          </ion-row>
+          <ion-select [(ngModel)]="operationsService.operation.firstReason" placeholder="Select first reason"
+            (ionChange)="checkIfInvestment()">
+            <ion-select-option value="investment">Investment</ion-select-option>
+            <ion-select-option value="2">Food</ion-select-option>
+            <ion-select-option value="3">Trips</ion-select-option>
+          </ion-select>
+          <ion-button id="add-reason" color="success" class="p-0 ml-10">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -62,13 +58,18 @@
       <ion-col size="12">
         <ion-item>
           <ion-select [(ngModel)]="operationsService.operation.bank" placeholder="Select a Bank">
-            <ion-select-option value="1">Bank 1</ion-select-option>
-            <ion-select-option value="2">Bank 2</ion-select-option>
-            <ion-select-option value="3">Bank 3</ion-select-option>
+            <ion-select-option *ngFor="let bank of banksService.userBanks"
+              [value]="bank._id">{{bank.name}}</ion-select-option>
           </ion-select>
+          <ion-button id="add-bank" color="success" class="p-0 ml-10">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
         </ion-item>
       </ion-col>
     </ion-row>
+
+    <ion-alert trigger="add-bank" header="Add a bank" [buttons]="banksService.alertButtons"
+      [inputs]="[banksService.newBank]"></ion-alert>
 
     <ion-alert trigger="add-reason" header="Add a reason" [buttons]="reasonsService.alertButtons"
       [inputs]="reasonsService.newReason"></ion-alert>
