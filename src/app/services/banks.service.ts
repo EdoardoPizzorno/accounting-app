@@ -18,14 +18,24 @@ export class BanksService {
   constructor(private dataService: DataService, private alertController: AlertController, private toastManager: ToastManager) { }
 
   async getBanks() {
-    await this.dataService.get('banks').then(async (response: any) => {
-      this.banks = response;
+    this.banks = await this.dataService.get('banks');
 
-      this.totalBalance = 0;
-      this.banks.forEach((bank: any) => {
-        this.totalBalance += Math.round((bank.availableBalance + bank.investedBalance) * 100) / 100;
-      });
-    }).catch(this.dataService.error);
+    await this.updateTotalBalance();
+  }
+
+  getTotalBalance() {
+    this.totalBalance = 0;
+    this.banks.forEach((bank: any) => {
+      this.totalBalance += Math.round((bank.availableBalance + bank.investedBalance) * 100) / 100;
+    });
+    return this.totalBalance;
+  }
+
+  async updateTotalBalance() {
+    this.totalBalance = 0;
+    this.banks.forEach((bank: any) => {
+      this.totalBalance += Math.round((bank.availableBalance + bank.investedBalance) * 100) / 100;
+    });
   }
 
   async add() {

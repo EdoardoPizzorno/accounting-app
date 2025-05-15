@@ -341,9 +341,9 @@ export class DataService {
   }
 
   private initializeHistoryChartData() {
-    let storageContent = localStorage.getItem("ACC-LOCAL-HISTORY-CHART-DATA");
+    let storageContent = localStorage.getItem("ACC-LOCAL-CHART-DATA");
     if (!storageContent) {
-      localStorage.setItem("ACC-LOCAL-HISTORY-CHART-DATA", JSON.stringify({
+      localStorage.setItem("ACC-LOCAL-CHART-DATA", JSON.stringify({
         "general": {
           "labels": [],
           "data": []

@@ -14,7 +14,6 @@ export class HomePage {
   constructor(private operationsService: OperationsService, private investmentsService: InvestmentsService, public banksService: BanksService, public dataService: DataService) { }
 
   async ngOnInit() {
-    await this.banksService.getBanks();
     await this.operationsService.getHistory();
     await this.investmentsService.getInvestments();
     await this.investmentsService.groupInvestments();

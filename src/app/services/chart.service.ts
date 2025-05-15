@@ -2,6 +2,7 @@ import { ElementRef, Injectable } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { OperationsService } from './operations.service';
 import { DataService } from './data.service';
+import { BanksService } from './banks.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ChartService {
   public investmentsChartCanvas!: ElementRef<HTMLCanvasElement>;
   public investmentsChart!: Chart;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private banksService: BanksService) { }
 
   createHistoryChart(history: any) {
     if (this.historyChart) {
@@ -145,7 +146,7 @@ export class ChartService {
     const currentYear = today.getFullYear();
 
 
-    let totalAmountInvested:number = 0;
+    let totalAmountInvested: number = 0;
 
     investments.forEach((investmentType: any) => {
       totalAmountInvested += (investmentType.totalQuantity * investmentType.currentPrice);
@@ -156,8 +157,8 @@ export class ChartService {
       const lastLabelDate = lastLabel.split('/');
       const lastLabelMonth = parseInt(lastLabelDate[1]);
       const lastLabelYear = parseInt(lastLabelDate[2]);
-      
-      if(lastLabelMonth === (currentMonth + 1) && lastLabelYear === currentYear) {
+
+      if (lastLabelMonth === (currentMonth + 1) && lastLabelYear === currentYear) {
         this.dataService.historyChartData.investments.data[this.dataService.historyChartData.investments.data.length - 1] = totalAmountInvested;
       } else {
         this.dataService.historyChartData.investments.labels.push(`${currentDay}/${currentMonth + 1}/${currentYear}`);
@@ -169,7 +170,38 @@ export class ChartService {
       this.dataService.historyChartData.investments.data.push(0);
     }
 
-    localStorage.setItem("ACC-LOCAL-HISTORY-CHART-DATA", JSON.stringify(this.dataService.historyChartData));
+    localStorage.setItem("ACC-LOCAL-CHART-DATA", JSON.stringify(this.dataService.historyChartData));
+  }
+
+  async manageDataForGeneralChart() {
+    const today = new Date();
+    const currentDay = today.getDate();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+
+    const totalBalance: number = this.banksService.getTotalBalance();
+    console.log(totalBalance)
+    if (this.dataService.historyChartData.general.labels.length > 0) {
+
+      const lastLabel = this.dataService.historyChartData.general.labels[this.dataService.historyChartData.general.labels.length - 1];
+      const lastLabelDate = lastLabel.split('/');
+      const lastLabelDay = parseInt(lastLabelDate[0]);
+      const lastLabelMonth = parseInt(lastLabelDate[1]);
+
+      if (lastLabelMonth != (currentMonth + 1)) {
+        this.dataService.historyChartData.general.data.push(totalBalance);
+        this.dataService.historyChartData.general.labels.push(`${currentDay}/${currentMonth + 1}/${currentYear}`);
+      } else if (lastLabelMonth == (currentMonth + 1) && lastLabelDay == currentDay && this.dataService.historyChartData.general.data[this.dataService.historyChartData.general.data.length - 1] != totalBalance) {
+        this.dataService.historyChartData.general.data[this.dataService.historyChartData.general.data.length - 1] = totalBalance;
+      }
+
+    } else {
+      this.dataService.historyChartData.general.labels.push(`${currentDay}/${currentMonth + 1}/${currentYear}`);
+      this.dataService.historyChartData.general.data.push(totalBalance);
+    }
+
+    localStorage.setItem("ACC-LOCAL-CHART-DATA", JSON.stringify(this.dataService.historyChartData));
+
   }
 
 }

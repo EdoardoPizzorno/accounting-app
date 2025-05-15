@@ -4,7 +4,6 @@ import { AlertController, ToastController } from '@ionic/angular';
 import { BanksService } from './banks.service';
 import { ApiAVService } from './api.service';
 import { Router } from '@angular/router';
-import { consumerPollProducersForChange } from '@angular/core/primitives/signals';
 import { ChartService } from './chart.service';
 
 @Injectable({
@@ -27,19 +26,12 @@ export class InvestmentsService {
   }
 
   async getInvestments() {
-    await this.dataService.get("investments").then(async (response: any) => {
-      this.investments = response;
-    }).catch((error: any) => {
-      console.error("Error fetching investments:", error);
-    });
+    this.investments = await this.dataService.get("investments");
+    await this.groupInvestments();
   }
 
   async getInvestmentTypes() {
-    await this.dataService.get("investmentTypes").then((response: any) => {
-      this.investmentTypes = response;
-    }).catch((error: any) => {
-      console.error("Error fetching investment types:", error);
-    });
+    this.investmentTypes = await this.dataService.get("investmentTypes")
   }
 
   add() {
@@ -231,6 +223,9 @@ export class InvestmentsService {
 
     await this.banksService.getBanks();
 
+    this.chartsService.manageDataForInvestmentsChart(this.investmentsGroupedByAssetTEMP);
+    await this.chartsService.manageDataForGeneralChart();
+
   }
 
   groupInvestmentsByType() {
@@ -318,7 +313,6 @@ export class InvestmentsService {
           const lastUpdate = new Date(previousData.lastUpdate);
           if (lastUpdate.getTime() + 24 * 60 * 60 * 1000 > new Date().getTime()) {
             investment.currentPrice = previousData.price;
-            this.chartsService.manageDataForInvestmentsChart(this.investmentsGroupedByAssetTEMP);
             continue;
           } else {
             investment.currentPrice = await this.updateCryptoPrice(first_currency, second_currency);
