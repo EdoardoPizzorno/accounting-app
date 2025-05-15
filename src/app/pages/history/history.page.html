@@ -15,41 +15,78 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngFor="let operation of operationsService.history">
-    <ion-card-header>
-      <ion-row>
-        <ion-col size="6">
-          <ion-card-title class="xlarge bold text-left">{{ operation.title == "" ? "Untitled" : operation.title
-            }}</ion-card-title>
-        </ion-col>
-        <ion-col size="6" class="text-right">
-          <strong class="xlarge " [ngClass]="{positive: operation.amount>0, 
-            negative: operation.amount<0, neutral: operation.amount==0}"> {{
-            operation.amount | currency: 'EUR' }} </strong>
-        </ion-col>
-      </ion-row>
-    </ion-card-header>
+  <canvas class="chart" #chart></canvas>
 
-    <ion-card-content>
-      <div class="text-left medium m-10">
+  <ion-accordion-group class="accordion-month">
+    <ion-accordion-group [value]="operationsService.groupedOperations?.[0]?.label">
+    <ion-accordion *ngFor="let group of operationsService.groupedOperations" [value]="group.label">
+      <ion-item slot="header" class="month-header">
+        <ion-label class="month-label">{{ group.label }}</ion-label>
+      </ion-item>
 
-        <strong class="medium"> {{ operation.date | date }} </strong>
-        <p class="description small"> <i> {{ operation.description == "" ? "No description" : operation.description }}
-          </i></p>
+      <div slot="content" class="operation-list">
+        <ion-accordion-group>
+          <ion-accordion *ngFor="let operation of group.operations" class="operation-accordion" [value]="operation.id">
+            <ion-item slot="header" class="operation-header" lines="none">
+              <ion-label class="title-label">
+                {{ operation.title == '' ? 'Untitled' : operation.title }}
+              </ion-label>
+              <ion-label slot="end" [ngClass]="{
+            'positive': operation.amount > 0,
+            'negative': operation.amount < 0,
+            'neutral': operation.amount == 0
+            }">
+                {{ operation.amount| currency: 'EUR' }}
+              </ion-label>
+            </ion-item>
 
-        <ion-row>
-          <ion-col size="10">
-            <p class="mt-10">Bank: <strong> {{ operation.bank }}</strong></p>
-            <p>Reason: <strong> {{ operation.firstReason }}</strong></p>
-            <p *ngIf="operation.secondReason">Second Reason: <strong> {{ operation.secondReason }}</strong></p>
-          </ion-col>
-          <ion-col size="2" class="text-center mt-25">
-            <ion-icon (click)="operationsService.deleteOperation(operation)" name="trash"></ion-icon>
-          </ion-col>
-        </ion-row>
+            <div slot="content">
+              <ion-card class="operation-card">
+                <ion-card-content>
+                  <div class="operation-details">
+                    <div class="info-row">
+                      <ion-icon name="calendar-outline"></ion-icon>
+                      <span>{{ operation.date | date }}</span>
+                    </div>
+                    <div class="info-row"
+                      *ngIf="operation.description != '' && operation.description != null && operation.description != undefined">
+                      <ion-icon name="document-text-outline"></ion-icon>
+                      <p>{{ operation.description }}</p>
+                    </div>
+                    <div class="categories-section">
+                      <div class="bank-tag" [ngStyle]="{ backgroundColor: operation.bank.color }">
+                        <span>{{ operation.bank.name }}</span>
+                      </div>
+                      <div class="reason-tag" *ngIf="operation.firstReason"
+                        [ngStyle]="{ backgroundColor: operation.firstReason.color }">
+                        <span>{{ operation.firstReason.name }}</span>
+                      </div>
+                      <div class="reason-tag" *ngIf="operation.secondReason"
+                        [ngStyle]="{ backgroundColor: operation.secondReason.color }">
+                        <span>{{ operation.secondReason.name
+                          }}</span>
+                      </div>
+                    </div>
+                  </div>
 
+                  <div class="operation-actions">
+                    <ion-button color="primary" (click)="operationsService.edit(operation)">
+                      <ion-icon slot="start" name="pencil"></ion-icon>
+                      Edit
+                    </ion-button>
+                    <ion-button color="danger" (click)="operationsService.delete(operation)">
+                      <ion-icon slot="start" name="trash"></ion-icon>
+                      Delete
+                    </ion-button>
+                  </div>
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
       </div>
+    </ion-accordion>
+  </ion-accordion-group>
+  </ion-accordion-group>
 
-    </ion-card-content>
-  </ion-card>
 </ion-content>

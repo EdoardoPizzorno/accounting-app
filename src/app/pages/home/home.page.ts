@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { BanksService as BanksService } from 'src/app/services/banks.service';
+import { BanksService } from 'src/app/services/banks.service';
+import { DataService } from 'src/app/services/data.service';
 import { InvestmentsService } from 'src/app/services/investments.service';
 import { OperationsService } from 'src/app/services/operations.service';
-import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-home',
@@ -11,11 +11,13 @@ import { ProfileService } from 'src/app/services/profile.service';
 })
 export class HomePage {
 
-  constructor(private operationsService: OperationsService, private investmentsService: InvestmentsService, public profileService: ProfileService, public banksService: BanksService) { }
+  constructor(private operationsService: OperationsService, private investmentsService: InvestmentsService, public banksService: BanksService, public dataService: DataService) { }
 
   async ngOnInit() {
+    await this.banksService.getBanks();
     await this.operationsService.getHistory();
     await this.investmentsService.getInvestments();
+    await this.investmentsService.groupInvestments();
   }
 
 }

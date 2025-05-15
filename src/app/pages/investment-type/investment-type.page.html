@@ -21,33 +21,86 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-card *ngFor="let investment of investmentsService.investmentsByType">
-    <ion-card-header>
-      <ion-row>
-        <ion-col size="6">
-          <ion-card-title class="xlarge bold text-left">{{ investment.ticker == "" ? "Untitled" : investment.ticker
-            }}</ion-card-title>
-        </ion-col>
-        <ion-col size="6" class="text-right">
-          <strong class="xlarge " [ngClass]="{positive
-            : investment.amount>0, negative: investment.amount<0, neutral: investment.amount==0}"> {{
-            investment.amount | currency: 'EUR' }} </strong>
-        </ion-col>
-      </ion-row>
-    </ion-card-header>
+  <ion-accordion-group class="accordion-ticker">
+    <ion-accordion *ngFor="let investment of investmentsService.investmentsGroupedByAsset">
+      <ion-item slot="header" class="ticker-header">
+        <ion-label class="ticker-label">{{ investment.ticker }}</ion-label>
+        <ion-label slot="end">
+          <strong [ngClass]="{
+            'positive': investment.totalQuantity * investment.currentPrice > 0,
+            'negative': investment.totalQuantity * investment.currentPrice < 0,
+            'neutral': investment.totalQuantity * investment.currentPrice == 0
+          }">~ {{ investment.totalQuantity * investment.currentPrice | currency: 'EUR' }}</strong>
+        </ion-label>
+      </ion-item>
 
-    <ion-card-content>
-      <div class="text-left medium m-10">
+      <div slot="content">
+        <ion-accordion-group>
+          <ion-accordion *ngFor="let operation of investment.operations" class="operation-accordion"
+            [value]="operation.id">
+            <ion-item slot="header" class="operation-header" lines="none">
+              <ion-label class="title-label">
+                {{ operation.date | date }}
+              </ion-label>
+              <ion-label slot="end" [ngClass]="{
+          'positive': operation.quantity * investment.currentPrice > 0,
+          'negative': operation.quantity * investment.currentPrice < 0,
+          'neutral': operation.quantity * investment.currentPrice == 0
+          }">
+                ~ {{ operation.quantity * investment.currentPrice | currency: 'EUR' }}
+              </ion-label>
+            </ion-item>
 
-        <strong class="medium"> {{ investment.date | date }} </strong>
-        <p class="description small"> <i> {{ investment.description == "" ? "No description" : investment.description }}
-          </i></p>
+            <div slot="content">
+              <ion-card class="operation-card">
+                <ion-card-content>
+                  <div class="operation-details">
+                    <div class="info-row" *ngIf="operation.notes != '' && operation.notes != null">
+                      <ion-icon name="document-text-outline"></ion-icon>
+                      <p>{{ operation.notes }}</p>
+                    </div>
+                    <div class="info-row" *ngIf="operation.init_amount != null">
+                      <ion-icon name="cash-outline"></ion-icon>
+                      <span>Init. Inv.: {{ operation.init_amount | currency: 'EUR' }}</span>
+                    </div>
+                    <div class="info-row" *ngIf="operation.quantity != null">
+                      <ion-icon name="cube-outline"></ion-icon>
+                      <span>Quantity: {{ operation.quantity }}</span>
+                    </div>
+                    <div class="info-row" *ngIf="operation.buyPrice != null">
+                      <ion-icon name="pricetag-outline"></ion-icon>
+                      <span>Buy price: {{ operation.buyPrice | currency: 'EUR' }}</span>
+                    </div>
+                    <div class="info-row" *ngIf="investment.currentPrice != null">
+                      <ion-icon *ngIf="operation.buyPrice < investment.currentPrice"
+                        name="trending-up-outline"></ion-icon>
+                      <ion-icon *ngIf="operation.buyPrice > investment.currentPrice"
+                        name="trending-down-outline"></ion-icon>
+                      <span>Current price: {{ investment.currentPrice | currency: 'EUR' }}</span>
+                    </div>
+                    <div class="info-row" *ngIf="investment.currentPrice != null && operation.quantity != null">
+                      <ion-icon name="cash-outline"></ion-icon>
+                      <span>Current value: {{ investment.currentPrice * operation.quantity | currency: 'EUR' }}</span>
+                    </div>
+                  </div>
 
-        <p class="mt-10">Broker: <strong> {{ investment.broker }}</strong></p>
-        <p>Type: <strong> {{ investment.type }}</strong></p>
-        <p *ngIf="investment.secondReason">Second Reason: <strong> {{ investment.secondReason }}</strong></p>
+                  <div class="operation-actions">
+                    <ion-button color="success" (click)="investmentsService.convert(investment.currentPrice, operation)">
+                      <ion-icon slot="start" name="cash-outline"></ion-icon>
+                      Closed
+                    </ion-button>
+                    <ion-button color="danger" (click)="investmentsService.delete(investment.currentPrice, operation)">
+                      <ion-icon slot="start" name="trash"></ion-icon>
+                      Delete
+                    </ion-button>
+                  </div>
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
       </div>
-    </ion-card-content>
-  </ion-card>
+    </ion-accordion>
+  </ion-accordion-group>
 
 </ion-content>

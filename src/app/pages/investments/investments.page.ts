@@ -1,6 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { InvestmentsService } from '../../services/investments.service';
+import { DataService } from 'src/app/services/data.service';
+import { ChartService } from 'src/app/services/chart.service';
+import { OperationsService } from 'src/app/services/operations.service';
 
 @Component({
   selector: 'app-investments',
@@ -12,43 +15,16 @@ export class InvestmentsPage implements OnInit {
   @ViewChild('chart', { static: true }) chartCanvas!: ElementRef<HTMLCanvasElement>;
   public chart!: Chart;
 
-  private labels: any[] = ['January', 'February', 'March', 'April', 'May', 'June'];
-  private data: any[] = [100, 200, 150, 300, 250, 400];
-
-  constructor(public investmentsService: InvestmentsService) { }
+  constructor(public investmentsService: InvestmentsService, private dataService: DataService, private chartsService: ChartService, private operationsService: OperationsService) { }
 
   async ngOnInit() {
+    this.chartsService.investmentsChartCanvas = this.chartCanvas;
+    
     await this.investmentsService.getInvestments();
-    this.createChart();
-  }
-
-  private createChart() {
-    Chart.register(...registerables);
-    Chart.defaults.elements.bar.borderWidth = 2;
-
-    this.chart = new Chart(this.chartCanvas.nativeElement, {
-      type: 'line', // bar, line, pie, doughnut, radar, polarArea, bubble, scatter
-      data: {
-        labels: this.labels,
-        datasets: [
-          {
-            data: this.data,
-            borderColor: 'rgb(66, 217, 107)',
-            pointStyle: false,
-            tension: 0.3,
-            borderWidth: 5,
-          }
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            display: false,
-          },
-        }
-      },
-    });
+    await this.investmentsService.getInvestmentTypes();
+    await this.investmentsService.groupInvestments();
+    
+    this.chartsService.createInvestmentsChart();
   }
 
 }

@@ -25,23 +25,58 @@
     <ion-row>
       <ion-col size="12">
         <ion-item>
+          <ion-row>
+            <div>
+              <ion-select [(ngModel)]="investmentsService.newInvestment.type" placeholder="Select Type"
+                interface="popover" (change)="investmentsService.updateInvestmentType($event)">
+                <ion-select-option *ngFor="let type of investmentsService.investmentTypes" [value]="type">
+                  <div style="display: flex; align-items: center;">
+                    <div [style.background]="type.color"
+                      style="width: 16px; height: 16px; border-radius: 50%; margin-right: 8px;"></div>
+                    <span>{{ type.name }}</span>
+                  </div>
+                </ion-select-option>
+              </ion-select>
+            </div>
+          </ion-row>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="investmentsService.newInvestment.type?.name == 'Stock' || investmentsService.newInvestment.type?.name == 'ETF' || investmentsService.newInvestment.type?.name == 'Bond'">
+      <ion-col size="12">
+        <ion-item>
           <ion-input type="text" [(ngModel)]="investmentsService.newInvestment.ticker" placeholder="Ticker"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngIf="investmentsService.newInvestment.type?.name == 'Crypto'">
       <ion-col size="12">
         <ion-item>
-          <ion-input type="text" [(ngModel)]="investmentsService.newInvestment.notes"
-            placeholder="Notes"></ion-input>
+          <ion-input type="text" [(ngModel)]="investmentsService.newInvestment.first_currency"
+            placeholder="First currency"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="investmentsService.newInvestment.type?.name == 'Crypto'">
+      <ion-col size="12">
+        <ion-item>
+          <ion-input type="text" [(ngModel)]="investmentsService.newInvestment.second_currency"
+            placeholder="Second currency"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col size="12">
         <ion-item>
-          <ion-input type="number" [(ngModel)]="investmentsService.newInvestment.amount"
-            placeholder="Amount"></ion-input>
+          <ion-input type="text" [(ngModel)]="investmentsService.newInvestment.notes" placeholder="Notes (facoltative)"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-input type="number" [(ngModel)]="investmentsService.newInvestment.init_amount"
+            placeholder="How much?"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -56,7 +91,8 @@
     <ion-row>
       <ion-col size="12">
         <ion-item>
-          <ion-input type="number" [(ngModel)]="investmentsService.newInvestment.price" placeholder="Price"></ion-input>
+          <ion-input type="number" [(ngModel)]="investmentsService.newInvestment.buyPrice"
+            placeholder="Buy price"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -72,26 +108,15 @@
         <ion-item>
           <ion-row>
             <div>
-              <ion-select [(ngModel)]="investmentsService.newInvestment.broker" placeholder="Select Broker">
-                <ion-select-option value="broker1">Broker1</ion-select-option>
-                <ion-select-option value="broker2">Broker2</ion-select-option>
-              </ion-select>
-            </div>
-          </ion-row>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12">
-        <ion-item>
-          <ion-row>
-            <div>
-              <ion-select [(ngModel)]="investmentsService.newInvestment.type" placeholder="Select Type">
-                <ion-select-option value="stocks">Stocks</ion-select-option>
-                <ion-select-option value="crypto">Crypto</ion-select-option>
-                <ion-select-option value="etf">ETF</ion-select-option>
-                <ion-select-option value="bond">Bond</ion-select-option>
-                <ion-select-option value="real-estate">Real Estate</ion-select-option>
+              <ion-select [(ngModel)]="investmentsService.newInvestment.broker" placeholder="Select Broker"
+                interface="popover">
+                <ion-select-option *ngFor="let bank of banksService.banks" [value]="bank.id">
+                  <div style="display: flex; align-items: center;">
+                    <div [style.background]="bank.color"
+                      style="width: 16px; height: 16px; border-radius: 50%; margin-right: 8px;"></div>
+                    <span>{{ bank.name }}</span>
+                  </div>
+                </ion-select-option>
               </ion-select>
             </div>
           </ion-row>
@@ -99,5 +124,11 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-button color="success" expand="block" (click)="investmentsService.add()">Add</ion-button>
+    </ion-col>
+  </ion-row>
 
 </ion-content>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BanksService } from 'src/app/services/banks.service';
 import { InvestmentsService } from 'src/app/services/investments.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { InvestmentsService } from 'src/app/services/investments.service';
 })
 export class AddInvestmentPage implements OnInit {
 
-  constructor(public investmentsService: InvestmentsService, private activatedRoute: ActivatedRoute) { }
+  constructor(public investmentsService: InvestmentsService, private activatedRoute: ActivatedRoute, public banksService: BanksService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {

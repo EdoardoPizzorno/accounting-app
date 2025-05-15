@@ -17,6 +17,7 @@
 <ion-content [fullscreen]="true">
 
   <ion-grid>
+
     <ion-row>
       <ion-col size="12">
         <ion-item>
@@ -24,6 +25,7 @@
         </ion-item>
       </ion-col>
     </ion-row>
+
     <ion-row>
       <ion-col size="12">
         <ion-item>
@@ -32,6 +34,7 @@
         </ion-item>
       </ion-col>
     </ion-row>
+
     <ion-row>
       <ion-col size="12">
         <ion-item>
@@ -39,52 +42,73 @@
         </ion-item>
       </ion-col>
     </ion-row>
+
     <ion-row>
       <ion-col size="12">
         <ion-item>
           <ion-select [(ngModel)]="operationsService.operation.firstReason" placeholder="Select first reason"
-            (ionChange)="checkIfInvestment()">
-            <ion-select-option value="investment">Investment</ion-select-option>
-            <ion-select-option value="2">Food</ion-select-option>
-            <ion-select-option value="3">Trips</ion-select-option>
+            interface="popover" (ionChange)="checkIfInvestment()">
+            <ion-select-option *ngFor="let reason of reasonsService.reasons" [value]="reason">
+              <div style="display: flex; align-items: center;">
+                <div [style.background]="reason.color"
+                  style="width: 16px; height: 16px; border-radius: 50%; margin-right: 8px;"></div>
+                <span>{{ reason.name }}</span>
+              </div>
+            </ion-select-option>
           </ion-select>
-          <ion-button id="add-reason" color="success" class="p-0 ml-10">
+
+
+          <ion-button *ngIf="operationsService.operation.firstReason" id="add-reason" color="danger" class="p-0 ml-10"
+            (click)="operationsService.operation.firstReason = ''">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+          <ion-button id="add-reason" color="success" class="p-0 ml-10" (click)="reasonsService.add()">
             <ion-icon name="add"></ion-icon>
           </ion-button>
         </ion-item>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col size="12">
-        <ion-item>
-          <ion-select [(ngModel)]="operationsService.operation.bank" placeholder="Select a Bank">
-            <ion-select-option *ngFor="let bank of banksService.userBanks"
-              [value]="bank._id">{{bank.name}}</ion-select-option>
-          </ion-select>
-          <ion-button id="add-bank" color="success" class="p-0 ml-10">
-            <ion-icon name="add"></ion-icon>
-          </ion-button>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <ion-alert trigger="add-bank" header="Add a bank" [buttons]="banksService.alertButtons"
-      [inputs]="[banksService.newBank]"></ion-alert>
-
-    <ion-alert trigger="add-reason" header="Add a reason" [buttons]="reasonsService.alertButtons"
-      [inputs]="reasonsService.newReason"></ion-alert>
 
     <ion-row *ngIf="operationsService.operation.firstReason">
       <ion-col size="12">
         <ion-item>
-          <ion-select [(ngModel)]="operationsService.operation.secondReason" placeholder="Select second reason">
-            <ion-select-option value="1">Reason 1</ion-select-option>
-            <ion-select-option value="2">Reason 2</ion-select-option>
-            <ion-select-option value="3">Reason 3</ion-select-option>
-          </ion-select>
+            <ion-select [(ngModel)]="operationsService.operation.secondReason"
+            placeholder="Select second reason (facoltative)" interface="popover">
+            <ion-select-option *ngFor="let reason of reasonsService.reasons" [value]="reason">
+              <div style="display: flex; align-items: center;">
+              <div [style.background]="reason.color"
+                style="width: 16px; height: 16px; border-radius: 50%; margin-right: 8px;"></div>
+              <span>{{ reason.name }}</span>
+              </div>
+            </ion-select-option>
+            </ion-select>
+          <ion-button *ngIf="operationsService.operation.secondReason" id="add-reason" color="danger" class="p-0 ml-10"
+            (click)="operationsService.operation.secondReason = ''">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
         </ion-item>
       </ion-col>
     </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+            <ion-select [(ngModel)]="operationsService.operation.bank" placeholder="Select a Bank" interface="popover">
+            <ion-select-option *ngFor="let bank of banksService.banks" [value]="bank.id">
+              <div style="display: flex; align-items: center;">
+              <div [style.background]="bank.color || '#ccc'"
+                style="width: 16px; height: 16px; border-radius: 50%; margin-right: 8px;"></div>
+              <span>{{ bank.name }}</span>
+              </div>
+            </ion-select-option>
+            </ion-select>
+          <ion-button id="add-bank" color="success" class="p-0 ml-10" (click)="banksService.add()">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
     <ion-row>
       <ion-col size="12">
         <ion-item>
@@ -92,11 +116,13 @@
         </ion-item>
       </ion-col>
     </ion-row>
+
     <ion-row>
       <ion-col size="12">
-        <ion-button color="success" expand="block" (click)="operationsService.addOperation()">Add</ion-button>
+        <ion-button color="success" expand="block" (click)="operationsService.add()">Add</ion-button>
       </ion-col>
     </ion-row>
+
   </ion-grid>
 
 </ion-content>

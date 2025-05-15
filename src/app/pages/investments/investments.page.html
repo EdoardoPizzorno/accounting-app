@@ -15,20 +15,20 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
+  <h3 class="ion-text-center">Last 12 months</h3>
   <canvas class="chart" #chart></canvas>
 
   <ion-card *ngFor="let investment of investmentsService.investmentsGroupedByType"
-    [routerLink]="['/investments/', investment.type]" routerLinkActive="router-link-active">
+    [routerLink]="['/investments/', investment.type?.name || '']" routerLinkActive="router-link-active">
     <ion-card-header>
       <ion-row>
         <ion-col size="6">
-          <ion-card-title class="large bold text-left">{{ investment.type == "" ? "Unknown" : investment.type
+          <ion-card-title class="large bold text-left">{{ investment.type?.name == "" ? "Unknown" : investment.type?.name || "Unknown"
             }}</ion-card-title>
         </ion-col>
         <ion-col size="6" class="text-right">
           <strong class="large" [ngClass]="{positive
-            : investment.total>0, negative: investment.total<0, neutral: investment.total==0}"> {{
+            : investment.total>0, negative: investment.total<0, neutral: investment.total==0}">~ {{
             investment.total | currency: 'EUR' }} </strong>
         </ion-col>
       </ion-row>

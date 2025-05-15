@@ -6,3 +6,159 @@ ion-card-content {
     padding: 16px !important;
     padding-top: 0px !important;
 }
+
+.investment-card {
+    margin: 10px 0;
+    border-radius: 8px;
+    
+    &:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+}
+
+ion-item {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+}
+
+ion-label {
+    font-weight: 500;
+    margin: 8px 0;
+}
+
+ion-button.edit-button {
+    --padding-start: 8px;
+    --padding-end: 8px;
+    margin: 0;
+}
+
+.header-row {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    color: var(--ion-color-medium);
+    padding: 8px 0;
+}
+
+.chart {
+    margin: 20px;
+}
+
+ion-content {
+    --background: #121212;
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.accordion-ticker {
+    margin: 16px;
+    border-radius: 16px;
+}
+
+.ticker-header {
+    padding: 10px;
+    background: #1e1e1e;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(255, 255, 255, 0.02);
+}
+
+.ticker-label {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.operation-accordion {
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    background-color: #1e1e1e;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.operation-header {
+    padding: 0px;
+    font-size: 15px;
+    font-weight: 500;
+    background: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.title-label {
+    padding: 4px;
+    margin-left: 16px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.operation-card {
+    background-color: #2a2a2a;
+    border-radius: 0 0 16px 16px;
+    margin: 0;
+    box-shadow: none;
+}
+
+.operation-details {
+    margin-top: 12px;
+    color: #cccccc;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.info-row ion-icon {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.categories-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.bank-tag,
+.reason-tag {
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    background-color: #cdc7c7;
+}
+
+.bank-tag span,
+.reason-tag span {
+    color: #000000;
+}
+
+.operation-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.operation-actions ion-button {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+}
+
+ion-button {
+    --border-radius: 12px;
+    --padding-start: 12px;
+    --padding-end: 12px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+ion-icon[name="trash"],
+ion-icon[name="pencil"] {
+    font-size: 20px;
+}

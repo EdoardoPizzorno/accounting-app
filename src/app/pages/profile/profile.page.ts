@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProfileService } from 'src/app/services/profile.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,14 +8,10 @@ import { ProfileService } from 'src/app/services/profile.service';
 })
 export class ProfilePage {
 
-  constructor(public profileService: ProfileService) { }
+  constructor(public dataService: DataService) { }
 
   editProfile() {
-    console.log('Edit profile clicked');
-  }
 
-  logout() {
-    this.profileService.logout();
   }
 
 }

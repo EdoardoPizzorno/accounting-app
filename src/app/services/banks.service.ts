@@ -1,43 +1,75 @@
 import { Injectable } from '@angular/core';
-import { RequestsService } from './requests.service';
+import { DataService } from './data.service';
+import { ToastManager } from '../utilities/toast.service';
+import { AlertController } from '@ionic/angular';
+import { InvestmentsService } from './investments.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BanksService {
 
-  public alertButtons: any = [
-    {
-      text: 'Cancel',
-      role: 'cancel'
-    },
-    {
-      text: 'Confirm',
-      handler: (e: any) => {
-        this.addBank(e[0])
-      }
-    }
-  ];
+  public newBank: any = {};
 
-  public newBank: any = {
-    placeholder: 'Bank',
-    name: "",
-    color: ""
-  };
+  public banks: any = [];
 
-  public userBanks: any = [];
+  public totalBalance: number = 0;
 
-  constructor(private requestsService: RequestsService) { }
+  constructor(private dataService: DataService, private alertController: AlertController, private toastManager: ToastManager) { }
 
-  async getUserBanks(bankIds: any) {
-    await this.requestsService.sendRequest('GET', 'banks', { "IDs": bankIds }).catch(this.requestsService.error)
-      .then((response: any) => {
-        this.userBanks = response.data;
+  async getBanks() {
+    await this.dataService.get('banks').then(async (response: any) => {
+      this.banks = response;
+
+      this.totalBalance = 0;
+      this.banks.forEach((bank: any) => {
+        this.totalBalance += Math.round((bank.availableBalance + bank.investedBalance) * 100) / 100;
       });
+    }).catch(this.dataService.error);
   }
 
-  async addBank(bank: any) {
-    console.log(bank);
+  async add() {
+    const alert = await this.alertController.create({
+      header: 'Add a bank',
+      inputs: [
+        {
+          name: 'name',
+          type: 'text',
+          placeholder: 'Bank name',
+        },
+        {
+          name: 'color',
+          type: 'text',
+          placeholder: 'Pick a color',
+          attributes: {
+            type: 'color'
+          }
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'OK',
+          handler: (bank) => {
+            this.dataService.post('banks', { name: bank.name, color: bank.color, balance: 0 }).then((response: any) => {
+              this.toastManager.presentToast(`Bank ${bank.name} added successfully`);
+              this.banks.push(response);
+            }).catch(this.dataService.error);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
   }
 
+  removeBank(bankId: any) {
+    this.banks = this.banks.filter((item: any) => item.id !== bankId);
+    this.dataService.delete('banks', { id: bankId }).then((response: any) => {
+    }).catch(this.dataService.error);
+  }
 }

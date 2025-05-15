@@ -19,15 +19,15 @@
   <div class="container mt-30">
     <ion-row class="ion-text-center ion-align-items-center ion-justify-content-center">
       <ion-avatar class="small">
-        <img [src]="profileService.user.avatar">
+        <img [src]="dataService.profileData.profilePicture" alt="Avatar">
       </ion-avatar>
       &nbsp;&nbsp;
-      <ion-text>Hi, {{profileService.user.username}}!</ion-text>
+      <ion-text>Hi, {{dataService.profileData.name}}!</ion-text>
     </ion-row>
   </div>
 
   <ion-card-header>
-    <ion-card-title class="ion-text-center"> € 100 </ion-card-title>
+    <ion-card-title class="ion-text-center"> € {{banksService.totalBalance}} </ion-card-title>
   </ion-card-header>
   <ion-card-subtitle class="ion-text-center small">
     <b> Running month: <ion-text class="negative">€ <i> -25,21 </i> </ion-text></b>
@@ -99,15 +99,18 @@
 
   <!-- NG-FOR EACH BANK -->
 
-  <ion-card *ngFor="let bank of banksService.userBanks">
+  <ion-card *ngFor="let bank of banksService.banks">
     <ion-card-header>
       <ion-card-title class="ion-text-center big"> <b> {{bank.name}} </b> </ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-card-subtitle class="ion-text-center mb-10">
-        <b> MONEY: <ion-text class="positive">€ <i> {{bank.balance}} </i> </ion-text></b>
+        <b> Total: <ion-text class="positive">€ <i> {{(bank.availableBalance + bank.investedBalance).toFixed(2)}} </i> </ion-text></b>
       </ion-card-subtitle>
-      <ion-card-subtitle class="ion-text-center xsmall">
+      <ion-card-subtitle class="ion-text-center mb-10">
+        <b> Available: <ion-text class="positive">€ <i> {{bank.availableBalance}} </i> </ion-text></b>
+      </ion-card-subtitle>
+      <ion-card-subtitle class="ion-text-center xsmall m-10">
         <b> Running month: <ion-text class="negative">€ <i> {{bank.moneyChange}} </i> </ion-text></b>
       </ion-card-subtitle>
     </ion-card-content>

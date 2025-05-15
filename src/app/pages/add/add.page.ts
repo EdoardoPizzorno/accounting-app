@@ -14,13 +14,11 @@ export class AddPage {
 
   constructor(public reasonsService: ReasonsService, public operationsService: OperationsService, private activatedRoute: ActivatedRoute, private router: Router, private investmentsService: InvestmentsService, public banksService: BanksService) { }
 
-  ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
-      if (params["reason"])
-        this.operationsService.operation.firstReason = params["reason"];
-      if (params["ticker"])
-        this.operationsService.operation.ticker = params["ticker"];
-    });
+  async ngOnInit() {
+    if (this.banksService.banks.length == 0)
+      await this.banksService.getBanks();
+    await this.reasonsService.getReasons();
+    this.getParams();
   }
 
   checkIfInvestment() {
@@ -28,10 +26,19 @@ export class AddPage {
       this.investmentsService.newInvestment = {
         title: this.operationsService.operation.title,
         description: this.operationsService.operation.description,
-        amount: this.operationsService.operation.amount
+        init_amount: this.operationsService.operation.amount
       }
       this.router.navigate(["/add/investment"]);
     }
+  }
+
+  private getParams() {
+    this.activatedRoute.params.subscribe(params => {
+      if (params["reason"])
+        this.operationsService.operation.firstReason = params["reason"];
+      if (params["ticker"])
+        this.operationsService.operation.ticker = params["ticker"];
+    });
   }
 
 }

@@ -5,10 +5,9 @@
     </ion-buttons>
 
     <ion-title>Profile</ion-title>
-
-    <ion-buttons slot="end">
-      <ion-button (click)="logout()">
-        <ion-icon name="log-out-outline"></ion-icon>
+    <ion-buttons slot="end" hidden>
+      <ion-button>
+        <ion-icon name="add"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -19,12 +18,12 @@
   <div class="profile-header">
     <div class="profile-picture-wrapper">
       <ion-avatar class="profile-avatar">
-        <img [src]="profileService.user.avatar" alt="Avatar">
+        <img [src]="dataService.profileData.profilePicture" alt="Avatar">
       </ion-avatar>
     </div>
     <div class="profile-info">
-      <h2>{{ profileService.user.name }} {{ profileService.user.surname }}</h2>
-      <p>{{ profileService.user.email }}</p>
+      <h2>{{dataService.profileData.name}} {{dataService.profileData.surname}}</h2>
+      <p>{{dataService.profileData.email}}</p>
     </div>
   </div>
 
@@ -33,20 +32,17 @@
       <ion-list lines="none">
         <ion-item>
           <ion-icon name="mail-outline" slot="start"></ion-icon>
-          <ion-text>{{ profileService.user.email }}</ion-text>
+          <ion-text>{{dataService.profileData.email}}</ion-text>
         </ion-item>
         <ion-item>
           <ion-icon name="call-outline" slot="start"></ion-icon>
-          <ion-text>{{ profileService.user.phone }}</ion-text>
-        </ion-item>
-        <ion-item>
-          <ion-icon name="home-outline" slot="start"></ion-icon>
-          <ion-text>{{ profileService.user.address }}</ion-text>
+          <ion-text>{{dataService.profileData.phone}}</ion-text>
         </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
 
-  <ion-button expand="full" color="success" shape="round" class="edit-button" (click)="editProfile()">Edit Profile</ion-button>
+  <ion-button expand="full" color="success" shape="round" class="edit-button" (click)="editProfile()">Edit
+    Profile</ion-button>
 
 </ion-content>

@@ -11,14 +11,15 @@ export class InvestmentTypePage implements OnInit {
 
   public investmentType: string = "";
 
-  constructor(private activatedRoute: ActivatedRoute, public investmentsService: InvestmentsService) { }
+  constructor(private activatedRoute: ActivatedRoute, public investmentsService: InvestmentsService, private router: Router) { }
 
   async ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
-      this.investmentType = params["name"];
-    });
-
-    await this.investmentsService.getInvestmentsByType(this.investmentType);
+    if(this.activatedRoute.snapshot.params["name"]) {
+      this.investmentType = this.activatedRoute.snapshot.params["name"];
+      // await this.investmentsService.groupInvestments();
+    }
+    else
+      this.router.navigate(["/investments"]);
   }
 
 }
