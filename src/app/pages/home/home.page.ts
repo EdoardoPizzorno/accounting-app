@@ -17,6 +17,7 @@ export class HomePage {
     await this.operationsService.getHistory();
     await this.investmentsService.getInvestments();
     await this.investmentsService.groupInvestments();
+    this.operationsService.updateRunningMonth();
   }
 
 }

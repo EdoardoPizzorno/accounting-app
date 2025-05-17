@@ -30,7 +30,15 @@
     <ion-card-title class="ion-text-center"> € {{banksService.totalBalance}} </ion-card-title>
   </ion-card-header>
   <ion-card-subtitle class="ion-text-center small">
-    <b> Running month: <ion-text class="negative">€ <i> -25,21 </i> </ion-text></b>
+    <ion-icon id="click-trigger" name="information-circle-outline"></ion-icon>
+    <b> Running month: <ion-text
+        [ngClass]="{positive: banksService.runningMonth > 0, negative: banksService.runningMonth < 0, neutral: banksService.runningMonth == 0}">€
+        <i> {{banksService.runningMonth}} </i> </ion-text></b>
+    <ion-popover trigger="click-trigger" triggerAction="click">
+      <ng-template>
+        <ion-content class="ion-padding">It doesn't count investments yet. [Updating]</ion-content>
+      </ng-template>
+    </ion-popover>
   </ion-card-subtitle>
 
   <div class="container">
@@ -105,7 +113,8 @@
     </ion-card-header>
     <ion-card-content>
       <ion-card-subtitle class="ion-text-center mb-10">
-        <b> Total: <ion-text class="positive">€ <i> {{(bank.availableBalance + bank.investedBalance).toFixed(2)}} </i> </ion-text></b>
+        <b> Total: <ion-text class="positive">€ <i> {{(bank.availableBalance + bank.investedBalance).toFixed(2)}} </i>
+          </ion-text></b>
       </ion-card-subtitle>
       <ion-card-subtitle class="ion-text-center mb-10">
         <b> Available: <ion-text class="positive">€ <i> {{bank.availableBalance}} </i> </ion-text></b>

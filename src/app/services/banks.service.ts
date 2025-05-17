@@ -3,6 +3,7 @@ import { DataService } from './data.service';
 import { ToastManager } from '../utilities/toast.service';
 import { AlertController } from '@ionic/angular';
 import { InvestmentsService } from './investments.service';
+import { OperationsService } from './operations.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class BanksService {
   public banks: any = [];
 
   public totalBalance: number = 0;
+  public runningMonth: number = 0;
+  public runningYear: number = 0;
 
   constructor(private dataService: DataService, private alertController: AlertController, private toastManager: ToastManager) { }
 
@@ -37,7 +40,7 @@ export class BanksService {
       this.totalBalance += Math.round((bank.availableBalance + bank.investedBalance) * 100) / 100;
     });
   }
-
+  
   async add() {
     const alert = await this.alertController.create({
       header: 'Add a bank',

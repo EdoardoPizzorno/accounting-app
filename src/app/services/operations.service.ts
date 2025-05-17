@@ -83,6 +83,8 @@ export class OperationsService {
 
           this.history.push(newOperation);
 
+          this.banksService.runningMonth += parseFloat(this.operation.amount || 0);
+
           this.history.sort((a: any, b: any) => {
             return new Date(b.date).getTime() - new Date(a.date).getTime();
           });
@@ -150,6 +152,18 @@ export class OperationsService {
       ]
     }).then(alert => alert.present());
     return;
+  }
+
+  async updateRunningMonth() {
+    this.banksService.runningMonth = 0;
+    for (let i = this.history.length - 1; i >= 0; i--) {
+      const operation = this.history[i];
+      const date = new Date(operation.date);
+      if (date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear()) {
+        this.banksService.runningMonth += Math.round((operation.amount) * 100) / 100;
+      }
+    }
+    console.log(this.banksService.runningMonth);
   }
 
   resetOperation() {
